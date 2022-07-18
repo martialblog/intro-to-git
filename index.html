@@ -1,0 +1,437 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Einführung in Git</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/sky.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			  <section>
+                            <h3>Einführung in Git</h3>
+                            <pre data-id="code-animation" class="language-bash"><code data-trim>
+                                $ git init
+                            </code></pre>
+                          </section>
+
+                          <section>
+                            <h3>Warum Git?</h3>
+                            <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                $ ls -l mein-projekt
+                                version1/
+                                version1.backup/
+                                version2-gehtnicht/
+                                version2_test/
+                                version1-old/
+                                version1_old2/
+                                version_1_old_geht
+                            </code></pre>
+			    <ul>
+			      <li>Versionskontrolle</li>
+			      <li>Kollaboration</li>
+                              <li>Arbeitfluss</li>
+                              <li>Viele tolle Funktionen mit GitLab</li>
+			    </ul>
+                            <p><small>Fun Fact: Git nutzt hinter den Kulissen meistens einfache Textdateien</small></p>
+                          </section>
+
+                          <section>
+                            <section>
+                            <h3>Kernkonzepte</h3>
+			    <ul>
+			      <li>Branch</li>
+			      <li>Commit</li>
+			      <li>Remote</li>
+			    </ul>
+                            </section>
+
+                            <section>
+                              <h3>Branch</h3>
+                              <p>Verkettung von Momentaufnahmen des Projekts</p>
+                              <pre data-id="code-animation" class="language-plaintext"><code data-trim>
+                                          E---F---G feature
+                                         /
+                                A---B---C---D master
+                              </code></pre>
+                              <small>
+			        <ul>
+			          <li>Die Geschichte aller Änderungen (hinzufügen, ändern, entfernen)</li>
+			          <li>Eine Branch ist eine Verkettung von Commits</li>
+			        </ul>
+                              </small>
+                            </section>
+
+                            <section>
+                              <h3>Commit</h3>
+                              <p>Momentaufnahmen des Projekts</p>
+
+                              <pre data-id="code-animation" class="language-plaintext"><code data-trim>
+                                  commit 980e1ca274a37
+                                  Author: Joseph F.
+                                  Date: Wed Jun 7
+
+                                  Add cool new feature
+                              </code></pre>
+
+                              <small>
+			        <ul>
+			          <li>Besteht aus Daten (der Änderung) und Metadaten (z.B. Autor, Zeitstempel, Notizen)</li>
+			          <li>Eine Verkettung von Commits ist eine Branch</li>
+			        </ul>
+                              </small>
+                            </section>
+
+                            <section>
+                              <h3>Remote</h3>
+                              <p>Ein oder mehrere Ablageorte für das Projekt (z.B. GitHub oder GitLab)</p>
+                              <pre data-id="code-animation" class="language-plaintext"><code data-trim>
+                                  (GitLab) A---B---C     origin/master
+                                  (lokal)  A---B---C---D master
+                              </code></pre>
+
+                              <small>
+			        <ul>
+			          <li>Obligatorisch für gemeinsames Arbeiten</li>
+			          <li>Lokale und Remote Branch können synchronisiert werden</li>
+			        </ul>
+                              </small>
+                            </section>
+
+                          </section>
+
+                          <section>
+                            <section>
+                              <h3>Arbeitsbereich anlegen</h3>
+                              <h4>clone & init</h4>
+                            </section>
+
+                            <section>
+                              <h3>git init</h3>
+                              <p>Legt einen neuen leeren Arbeitsbereich an</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ mkdir my-project
+                                  $ cd my-project/
+                                  $ git init
+                                  $ # neuer versteckter Ordner
+                                  $ ls -l .git
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git clone</h3>
+                              <p>Kopiert ein bestehendes Projekt mit HTTP oder SSH</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git clone https://github.com/martialblog/intro-to-git.git
+                                  $ cd intro-to-git/
+                                  $ # Die URL wird automatisch eine Remote namens origin
+                                  $ grep remote .git/config
+                              </code></pre>
+                            </section>
+                          </section>
+
+                          <section>
+                            <section>
+                              <h3>Änderungen vornehmen</h3>
+                              <h4>add, restore & commit</h4>
+                            </section>
+
+                            <section>
+                              <h3>git add</h3>
+                              <p>Fügt Änderungen in den Vorbereitungsbereich (Staging Area) hinzu</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git add my-file.py
+                              </code></pre>
+
+                              <small>
+			        <ul>
+                                  <li>Metapher: Ein Paket muss zur Post</li>
+                                  <li>Zuerst packen wir alles in den Karton, ohne das Paket zu schliessen (git add)</li>
+                                  <li>Danach wird das Paket verschlossen und bekommt einen Stempel (git commit)</li>
+			        </ul>
+                              </small>
+
+                            </section>
+
+                            <section>
+                              <h3>git restore</h3>
+                              <p>Entfernt Änderungen aus dem Vorbereitungsbereich</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git restore add-file.py
+                              </code></pre>
+
+                              <small>
+			        <ul>
+                                  <li>Metapher: Ein Paket muss zur Post</li>
+                                  <li>Das Paket ist noch nicht verschlossen, also können Dinge noch entfernt werden (git restore)</li>
+                                  <li>Warum "restore"? Weil wir den letzten bekannten Stand wiederherstellen</li>
+			        </ul>
+                              </small>
+                            </section>
+
+                            <section>
+                              <h3>git commit</h3>
+                              <p>Erstellt einen neuen Commit mit allen Änderungen im Vorbereitungsbereich</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ # -m für einen Titel
+                                  $ git commit -m "Add cool new feature"
+                                  $ # ohne -m öffnet sich der Editor
+                                  $ git commit
+                              </code></pre>
+                              <small>
+			        <ul>
+                                  <li>Metapher: Ein Paket muss zur Post</li>
+                                  <li>Das Paket wird verschlossen und bekommt einen Stempel (git commit)</li>
+			        </ul>
+                              </small>
+                            </section>
+                          </section>
+
+                          <section>
+                            <section>
+                              <h3>Historie betrachten</h3>
+                              <h4>status, diff & log</h4>
+                            </section>
+
+                            <section>
+                              <h3>git status</h3>
+                              <p>Zeigt den aktuellen Status des Arbeitsbereich an</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git status
+                                    Zum Commit vorgemerkte Änderungen:
+                                            geändert:       my-app.py
+
+                                    Änderungen, die nicht zum Commit vorgemerkt sind:
+                                            gelöscht:       delete-me.py
+
+                                    Unversionierte Dateien:
+                                            new-file.py
+                              </code></pre>
+                              <p><small>Fun Fact: Löschen ist für Git auch nur eine Änderung</small></p>
+                            </section>
+
+                            <section>
+                              <h3>git diff</h3>
+                              <p>Zeigt den Unterschiede im Arbeitsbereich oder Branches an</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git diff
+                                  diff --git a/hello.py b/hello.py
+                                  @@ -1 +1 @@
+                                  -Hallo Welt
+                                  +Hello World
+                              </code></pre>
+                              <p><small>Kann auch anzeigen, was in den nächsten Commit kommt</small></p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git add goodbye.py
+                                  $ git diff --staged
+                                  diff --git a/goodbye.py b/goodbye.py
+                                  @@ -1 +1 @@
+                                  -Tschüss Welt
+                                  +Goodbye World
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git log</h3>
+                              <p>Zeigt die Historie des Projekts an</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git log
+                                  commit c38cee008
+                                  Author: Alessandro V.
+                                  Date:   Mon Jun 27
+                                      Fix bug in login
+
+                                  commit 98ab6ab5f
+                                  Merge: b8b0d50 f68bfcf
+                                  Author: Joseph F.
+                                  Date:   Mon Jun 27
+                                      Add login feature
+                              </code></pre>
+                              <small>
+			        <ul>
+                                  <li>Viele tolle Optionen verfügbar:</li>
+                                  <li>git log --graph</li>
+                                  <li>git log --oneline --decorate</li>
+                                  <li>git log --oneline --decorate --graph</li>
+                                  <li>git log --oneline --grep='Merge'</li>
+                                  <li>Und viele mehr...</li>
+			        </ul>
+                              </small>
+                            </section>
+                          </section>
+
+                          <section>
+                            <section>
+                              <h3>Historie erweitern</h3>
+                              <h4>branch & merge</h4>
+                            </section>
+
+                            <section>
+                              <h3>git branch</h3>
+                              <p>Branches anzeigen, erstellen, löschen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git branch
+                                  * master
+                                  $ git branch neuer-zweig
+                                  $ git branch
+                                  * master
+                                  neuer-zweig
+                                  $ git branch -d neuer-zweig
+                              </code></pre>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git branch new-feature
+                                  $ # Alternativ git checkout new-feature
+                                  $ git switch new-feature
+                                  $ git branch
+                                  master
+                                  * new-feature
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git merge</h3>
+                              <p>Entwicklungszweige zusammenführen</p>
+                              <pre data-id="code-animation" class="language-plaintext"><code data-trim>
+                              Vor Merge
+                                      A---B---C topic
+                                     /
+                                D---E---F---G master
+
+                              Nach Merge
+                                      A---B---C feature
+                                     /         \
+                                D---E---F---G---H master
+                              </code></pre>
+                              <p><small>H enthält alle Änderungen von A, B und C</small></p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git branch new-feature
+                                  $ git switch new-feature
+                                  $ # Änderung vornehmen, git add & git commit
+                                  $ git switch master
+                                  $ git merge new-feature
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git merge CONFLICT!</h3>
+                              <p>Entsteht, wenn auf Branches dieselben Zeilen in einer Datei geändert wurden und man mergen möchte</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                              $ git merge new-feature
+                              Auto-merging app.py
+                              CONFLICT (content): Merge conflict in app.py
+                              Automatic merge failed;
+                              fix conflicts and then commit the result.
+                              </code></pre>
+                              <small>
+			        <ul>
+			          <li>git status hilft beim Identifizieren der Dateien</li>
+			          <li>Git markiert Fehler innerhalb der Dateien</li>
+                                  <li>In den Dateien wählt man die gewünschten Zeilen aus, entfernt die anderen</li>
+                                  <li>Mit git commit finalisiert man den Merge</li>
+                                  <li>Wenn alle Stricke reissen: git merge --abort</li>
+			        </ul>
+                              </small>
+                            </section>
+                          </section>
+
+                          <section>
+                            <section>
+                              <h3>Mit Remotes arbeiten</h3>
+                              <h4>push & pull</h4>
+                            </section>
+
+                            <section>
+                              <h3>git remote</h3>
+                              <p>Remote URLs anzeigen, erstellen, löschen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git remote
+                                  origin
+                                  $ git remote add github git@github.com:martialblog/intro-to-git.git
+                                  $ git remote
+                                  origin
+                                  github
+                                  $ git remote remove github
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git push</h3>
+                              <p>Commits und Dateien zu einer Remote hochladen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ # git push REMOTE-Name BRANCH-Name
+                                  $ git push origin master
+                              </code></pre>
+                              <pre data-id="code-animation" class="language-plaintext"><code data-trim>
+                                  # Vor Push
+                                  (GitLab) A---B  origin/master
+                                  (lokal)  A---B---C---D master
+
+                                  # Nach Push
+                                  (GitLab) A---B---C---D origin/master
+                                  (lokal)  A---B---C---D master
+                              </code></pre>
+                              <small>
+			        <ul>
+			          <li>Eine Remote Branch hat den Remote Namen als Prefix</li>
+			          <li>Wenn sich die Historie zu sehr unterscheidet, kann nicht gepusht werden</li>
+                                  <li>Grund: Zentrale Historie würde überschrieben</li>
+			        </ul>
+                              </small>
+                            </section>
+
+                            <section>
+                              <h3>git pull</h3>
+                              <p>Commits und Dateien von einer Remote herunterladen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git pull
+                              </code></pre>
+                              <p><small>Fun Fact: git pull ist ein Kürzel für git fetch & git merge. Heißt aber auch, merge conflict ist möglich</small></p>
+                            </section>
+                          </section>
+
+                          <section>
+                            <h3>GitLab</h3>
+                            <p>GitLab bietet viele zusätzliche Funktionen um Git an</p>
+ 			    <ul>
+                              <li>Merge Requests</li>
+			      <li>Issues, Milestones</li>
+                              <li>Paket und Container Repository</li>
+			      <li>GitLab CI</li>
+			    </ul>
+                          </section>
+
+                          <section>
+                            <h3>Literaturhinweise</h3>
+                            <ul>
+                              <li>https://www.atlassian.com/de/git/tutorials</li>
+                              <li>https://about.gitlab.com/feature</li>
+                            </ul>
+                          </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
