@@ -409,6 +409,85 @@
                           </section>
 
                           <section>
+                            <section>
+                              <h3>Bonusrunde</h3>
+                            </section>
+
+                            <section>
+                              <h3>.gitignore</h3>
+                              <p>Dateien, die Git ignorieren soll</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ cat .gitignore
+                                  *.tar.gz
+                                  logs.txt
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>HEAD</h3>
+                              <p>Zeiger auf einen Commit</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                              $ cat .git/HEAD
+                              ref: refs/heads/master
+
+                              $ cat .git/refs/heads/master
+                              092246927d85e2aaabb27a71339bba9823d26434
+                              </code></pre>
+                              <p><small>Fun Fact: Git "Tags" funktionieren genauso</small></p>
+
+                            </section>
+
+                            <section>
+                              <h3>git stash</h3>
+                              <p>Arbeit temporär zur Seite legen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git stash
+                                  $ # Unversionierte Dateien inkludieren
+                                  $ git stash --include-untracked
+                                  $ # Stash wiederherstellen
+                                  $ git stash pop
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git commit --amend</h3>
+                              <p>Letzten Commit editieren</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git commit -m "Dateii gelöcht"
+                                  $ # Huch!
+                                  $ git commit --amend -m "Datei gelöscht"
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git reset</h3>
+                              <p>Branch auf einen vorherigen Stand zurücksetzen</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ # Zum Commit vorgemerkte Änderungen behalten
+                                  $ git reset --soft b579430d7
+                                  $ # Alles zurücksetzen
+                                  $ git reset --hard b579430d7
+                              </code></pre>
+                              <h3>git revert</h3>
+                              <p>Einen Commit rückgängig machen (erstellt einen neuen Commit dafür)</p>
+                              <pre data-id="code-animation" class="language-shell"><code data-trim>
+                                  $ git revert b579430d7
+                              </code></pre>
+                            </section>
+
+                            <section>
+                              <h3>git rebase</h3>
+                              <p>Komplette Kontrolle über die Projekt Historie</p>
+                              <p>Commits zusammenfassen, entfernen, verschieben, verändern und vieles mehr</p>
+                              <p>
+                                Wichtig: <span class="fragment highlight-red">Niemals</span> auf einer <span class="fragment highlight-blue">gemeinsamer Branch</span><span class="fragment">!</span><span class="fragment">!</span><span class="fragment">!</span><span class="fragment">*</span>
+                                <p class="fragment"><small>*Außer man weiß wirklich was man tut</small></p>
+                              </p>
+                            </section>
+
+                          </section>
+
+                          <section>
                             <h3>Literaturhinweise</h3>
                             <ul>
                               <li>https://www.atlassian.com/de/git/tutorials</li>
